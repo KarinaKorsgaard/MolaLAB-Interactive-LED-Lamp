@@ -1,0 +1,4 @@
+lamp-server/node_modules/
+lamp/node_statumodules/
+lamp-server/node_modules/puppeteer/.local-chromium/mac-656675/chrome-mac/Chromium.app/Contents/Versions/76.0.3786.0/Chromium Framework.framework/Versions/A/Chromium Framework
+*.log
