@@ -24,25 +24,30 @@ var artnet = require('artnet')(options);
 
 
 (async () => {
-	const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: false});
-	const page = await browser.newPage();
-	await page.goto('http://10.0.1.28:8080/');
-	// await page.screenshot({path: 'example.png'});
+	try {
+		const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: false});
+		const page = await browser.newPage();
+		await page.goto('http://10.0.1.28:8080/');
+		// await page.screenshot({path: 'example.png'});
 
 
 
-	wss.on('connection', ws => {
-	  ws.on('message', message => {
-	  	// console.log('send')
-	    // console.log(`Received message => ${message}`);
-	  });
-	  artnet.set(0, 1, [10, Math.floor(Math.random()*255), 255, 23], function (err, res) {
-	    	console.log('send dmx')
+		wss.on('connection', ws => {
+		  ws.on('message', message => {
+		  	// console.log('send')
+		    // console.log(`Received message => ${message}`);
+		  });
+		  artnet.set(0, 1, [10, Math.floor(Math.random()*255), 255, 23], function (err, res) {
+		    	console.log('send dmx')
+			});
+		  console.log('connected');
+		  ws.send('ho!');
 		});
-	  console.log('connected');
-	  ws.send('ho!');
-	});
-	console.log("Started");
+		console.log("Started");
+	}
+	catch(e) {
+		console.log('Error')
+	}
 
 
 	// await browser.close();
