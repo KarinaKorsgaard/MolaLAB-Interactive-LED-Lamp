@@ -22,41 +22,32 @@ var artnet = require('artnet')(options);
 //    artnet.close();
 //});
 
-wss.on('connection', ws => {
-  ws.on('message', message => {
-  	// console.log('send')
-    // console.log(`Received message => ${message}`);
-  });
-  artnet.set(0, 1, [10, Math.floor(Math.random()*255), 255, 23], function (err, res) {
-    	console.log('send dmx')
-	});
-  console.log('connected');
-  ws.send('ho!');
-});
-console.log("Started");
 
-
-/*
 (async () => {
 	const browser = await puppeteer.launch({
 		headless:false
 	});
 	const page = await browser.newPage();
-	await page.goto('file:///Users/karinakorsgaardjensen/Documents/_dev/Lamp/testSite/index.html');
-	await page.screenshot({path: 'example.png'});
+	await page.goto('http://10.0.1.28:8080/');
+	// await page.screenshot({path: 'example.png'});
 
 
-	const wss = new WebSocket.Server({ port: 8080 })
 
 	wss.on('connection', ws => {
 	  ws.on('message', message => {
-	    console.log(`Received message => ${message}`)
-	  })
-	  ws.send('ho!')
-	})
+	  	// console.log('send')
+	    // console.log(`Received message => ${message}`);
+	  });
+	  artnet.set(0, 1, [10, Math.floor(Math.random()*255), 255, 23], function (err, res) {
+	    	console.log('send dmx')
+		});
+	  console.log('connected');
+	  ws.send('ho!');
+	});
+	console.log("Started");
 
 
-	await browser.close();
+	// await browser.close();
 })();
 
-*/
+
