@@ -41,8 +41,8 @@ export default {
 
             this.socket.onopen = function(event) {
                 this.socketIsReady = true
-                this.socket.send('Hello World!')
-                this.loop()
+                // this.socket.send('Hello World!')
+                // this.loop()
             }
 
             this.socket.onclose = function(event) {
@@ -86,12 +86,15 @@ export default {
         },
 
         loop:function() {
-            const imageData = this.context.getImageData(0, 0, this.cWidth, this.cHeight).data
-            const pixelData = this.pixelArray.map(pos => {
+            if (this.socketIsReady) {
+                const imageData = this.context.getImageData(0, 0, this.cWidth, this.cHeight).data
+                const pixelData = this.pixelArray.map(pos => {
                 const pixel = (pos[1] * this.cWidth + pos[0]) * 4
                 return data.slice(pixel, pixel + 4)
             })
-            if (this.socketIsReady) this.socket.send(pixelData)
+            this.socket.send(pixelData)
+
+            }
             requestAnimationFrame(this.loop)
         },
     },
@@ -100,6 +103,7 @@ export default {
         this.getCanvas()
         this.createPixelArray()
         this.toggleTemplate()
+        this.loop()
     },
     components: {
         // Logo
